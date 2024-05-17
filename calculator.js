@@ -29,7 +29,7 @@ for (item of btn) {
         screen.value += btntext;
 
         // Log the current screen value
-        console.log(screen.value);
+        // console.log(screen.value);
     });
 }
 
