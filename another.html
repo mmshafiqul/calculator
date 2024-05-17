@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #screen {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 10px;
+            font-size: 24px;
+            text-align: right;
+            padding: 5px;
+        }
+        .btn {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .btn.operator {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <input type="text" id="screen" readonly>
+    <div>
+        <button class="btn operator" onclick="handleButtonClick('sin()')">sin</button>
+        <button class="btn operator" onclick="handleButtonClick('cos()')">cos</button>
+        <button class="btn operator" onclick="handleButtonClick('tan()')">tan</button>
+        <button class="btn operator" onclick="handleButtonClick('pow()')">^</button>
+        <button class="btn operator" onclick="handleButtonClick('sqrt()')">√</button>
+        <button class="btn operator" onclick="handleButtonClick('log()')">log</button>
+        <button class="btn operator" onclick="handleButtonClick('pi()')">π</button>
+        <button class="btn operator" onclick="handleButtonClick('e()')">e</button>
+        <button class="btn operator" onclick="handleButtonClick('fact()')">!</button>
+        <button class="btn operator" onclick="handleButtonClick('backspc()')">←</button>
+    </div>
+    <div>
+        <button class="btn" onclick="handleButtonClick('7')">7</button>
+        <button class="btn" onclick="handleButtonClick('8')">8</button>
+        <button class="btn" onclick="handleButtonClick('9')">9</button>
+        <button class="btn operator" onclick="handleButtonClick('÷')">÷</button>
+    </div>
+    <div>
+        <button class="btn" onclick="handleButtonClick('4')">4</button>
+        <button class="btn" onclick="handleButtonClick('5')">5</button>
+        <button class="btn" onclick="handleButtonClick('6')">6</button>
+        <button class="btn operator" onclick="handleButtonClick('×')">×</button>
+    </div>
+    <div>
+        <button class="btn" onclick="handleButtonClick('1')">1</button>
+        <button class="btn" onclick="handleButtonClick('2')">2</button>
+        <button class="btn" onclick="handleButtonClick('3')">3</button>
+        <button class="btn operator" onclick="handleButtonClick('-')">-</button>
+    </div>
+    <div>
+        <button class="btn" onclick="handleButtonClick('0')">0</button>
+        <button class="btn" onclick="handleButtonClick('.')">.</button>
+        <button class="btn operator" onclick="handleButtonClick('+')">+</button>
+        <button class="btn operator" onclick="handleButtonClick('=')">=</button>
+    </div>
+</div>
+
+<script>
+    var screen = document.getElementById('screen');
+    var lastInputWasOperator = false;
+
+    function handleButtonClick(btntext) {
+        if (btntext === '=') {
+            try {
+                screen.value = eval(screen.value);
+            } catch (e) {
+                screen.value = 'Error';
+            }
+        } else if (isNumber(btntext)) {
+            if (lastInputWasOperator) {
+                screen.value += btntext;
+                lastInputWasOperator = false;
+            } else {
+                screen.value += btntext;
+            }
+        } else {
+            // Handle operators
+            if (!lastInputWasOperator) {
+                screen.value += btntext;
+                lastInputWasOperator = true;
+            }
+        }
+    }
+
+    function isNumber(str) {
+        return !isNaN(str);
+    }
+
+    function sin() {
+        screen.value = Math.sin(eval(screen.value));
+    }
+
+    function cos() {
+        screen.value = Math.cos(eval(screen.value));
+    }
+
+    function tan() {
+        screen.value = Math.tan(eval(screen.value));
+    }
+
+    function pow() {
+        screen.value = Math.pow(eval(screen.value), 2);
+    }
+
+    function sqrt() {
+        screen.value = Math.sqrt(eval(screen.value));
+    }
+
+    function log() {
+        screen.value = Math.log(eval(screen.value));
+    }
+
+    function pi() {
+        screen.value = Math.PI;
+    }
+
+    function e() {
+        screen.value = Math.E;
+    }
+
+    function fact() {
+        var num = eval(screen.value);
+        var f = 1;
+        for (var i = 1; i <= num; i++) {
+            f = f * i;
+        }
+        screen.value = f;
+    }
+
+    function backspc() {
+        screen.value = screen.value.substr(0, screen.value.length - 1);
+    }
+</script>
+
+</body>
+</html>
